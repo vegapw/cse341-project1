@@ -1,0 +1,37 @@
+### Get All
+GET http://localhost:3000/contacts/
+
+
+### Get by Id
+GET http://localhost:3000/contacts/66f2ea68f4056295852bc913
+
+
+### Create
+POST http://localhost:3000/contacts/ HTTP/1.1
+content-Type: application/json
+
+{
+    "birthday": "2022-08-02T00:00:00.000Z",
+    "email": "Emma.vega@gmail.com",
+    "favoriteColor": "Purple",
+    "firstName": "Emma",
+    "lastName": "Vega"
+}
+
+### Update
+PUT http://localhost:3000/contacts/66f2ea68f4056295852bc913 HTTP/1.1
+content-Type: application/json
+
+{
+    "birthday": "2000-01-07T00:00:00.000Z",
+    "email": "fredy.vega@gmail.com",
+    "favoriteColor": "Red",
+    "firstName": "Fredy",
+    "lastName": "Vega"
+}
+
+
+
+### Delete by Id
+DELETE http://localhost:3000/contacts/66f5d23e097ac45f7fc9f29a
+
