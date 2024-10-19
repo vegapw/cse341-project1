@@ -5,21 +5,48 @@ const {ObjectId} = require('mongodb');
 
 const getAll = async (req, res) => {
   //#swagger.tags=['Contacts']
-  const result = mongoDB.getDatabase().db().collection('contacts').find();
-  result.toArray().then((contacts) => {
+  //const result = mongoDB.getDatabase().db().collection('contacts').find();
+  //const result = mongoDB
+  mongoDB
+  .getDatabase()
+  .db()
+  .collection('contacts')
+  .find()
+  .toArray((err, contacts) => {
+    if (err) {
+      res.status(400).json({ message : err});
+    }
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(contacts);
-  });  
+  });
+  /*result.toArray().then((contacts) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(contacts);
+  });
+  */  
 };
 
 const getContactById = async (req, res) => {
   //#swagger.tags=['Contacts']
     const contactId = ObjectId.createFromHexString(req.params.id);
-    const result = mongoDB.getDatabase().db().collection('contacts').find({_id:contactId});
-    result.toArray().then((contacts) => {
+    //const result = mongoDB
+    mongoDB
+    .getDatabase()
+    .db()
+    .collection('contacts')
+    .find({_id:contactId})
+    .toArray((err, contacts) => {
+      if (err){
+        res.status(400).json({message : err});
+      }
+      res.setHeader('Content-Type','application/json');
+      res.status(200).json(contacts[0]);
+    });
+    /*result.toArray().then((contacts) => {
       res.setHeader('Content-Type', 'application/json');
       res.status(200).json(contacts[0]);
-    });  
+    });
+    */  
   };
 
 const createContact = async (req, res) => {
@@ -34,7 +61,8 @@ const createContact = async (req, res) => {
   const result = await mongoDB.getDatabase().db().collection('contacts').insertOne(contact);
   if (result.acknowledged) {
     //res.status(204).json(`{"id": "${result.insertedId.toString()}"}`);
-    res.status(204).send(result.insertedId.toString());
+    //res.status(201).json(result); to try...
+    res.status(201).send(result.insertedId.toString());
   } else {
     res.status(500).json(response.error || 'Some error occurred while creating the contact.');
   }
@@ -54,7 +82,7 @@ const updateContact = async (req, res) => {
   if (result.modifiedCount > 0) {
     res.status(204).send();
   } else {
-    res.status(500).json(response.error || 'Some error occurred while creating the contact.');
+    res.status(500).json(response.error || 'Some error occurred while updating the contact.');
   }
 };
 
@@ -65,7 +93,7 @@ const deleteContact = async (req, res) => {
   if (result.deletedCount > 0) {
     res.status(204).send();
   } else {
-    res.status(500).json(response.error || 'Some error occurred while creating the contact.');
+    res.status(500).json(response.error || 'Some error occurred while deleting the contact.');
   }
 };
 

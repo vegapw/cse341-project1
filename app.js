@@ -16,6 +16,9 @@ app .use(bodyParser.json())
     })
     .use('/', routes);
 
+process.on('uncaughtException', (err, origin) => {
+    console.log(process.stderr.fd, `Caught Exception: ${err}\n` + `Exception Origin: ${origin}`);
+});
 
 mongoDB.initDB((err) => {
     if (err){
