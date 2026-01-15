@@ -5,9 +5,9 @@ const {ObjectId} = require('mongodb');
 
 const getAll = async (req, res) => {
   //#swagger.tags=['Contacts']
-  //const result = mongoDB.getDatabase().db().collection('contacts').find();
+  const result = mongoDB.getDatabase().db().collection('contacts').find();
   //const result = mongoDB
-  mongoDB
+/*  mongoDB
   .getDatabase()
   .db()
   .collection('contacts')
@@ -18,18 +18,20 @@ const getAll = async (req, res) => {
     }
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(contacts);
-  });
-  /*result.toArray().then((contacts) => {
+  });*/
+  result.toArray().then((contacts) => {
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(contacts);
   });
-  */  
+
 };
 
 const getContactById = async (req, res) => {
   //#swagger.tags=['Contacts']
     const contactId = ObjectId.createFromHexString(req.params.id);
-    //const result = mongoDB
+    const result = mongoDB
+    .getDatabase().db().collection('contacts').find({_id:contactId});
+    /*
     mongoDB
     .getDatabase()
     .db()
@@ -42,20 +44,21 @@ const getContactById = async (req, res) => {
       res.setHeader('Content-Type','application/json');
       res.status(200).json(contacts[0]);
     });
-    /*result.toArray().then((contacts) => {
+    */
+    result.toArray().then((contacts) => {
       res.setHeader('Content-Type', 'application/json');
       res.status(200).json(contacts[0]);
     });
-    */  
+
   };
 
 const createContact = async (req, res) => {
   //#swagger.tags=['Contacts']
   const contact = {
-    firstName : req.body.firstName, 
+    firstName : req.body.firstName,
     lastName : req.body.lastName ,
-    email : req.body.email, 
-    favoriteColor : req.body.favoriteColor, 
+    email : req.body.email,
+    favoriteColor : req.body.favoriteColor,
     birthday : req.body.birthday
   };
   const result = await mongoDB.getDatabase().db().collection('contacts').insertOne(contact);
@@ -72,10 +75,10 @@ const updateContact = async (req, res) => {
   //#swagger.tags=['Contacts']
   const contactId = ObjectId.createFromHexString(req.params.id);
   const contact = {
-    firstName : req.body.firstName, 
+    firstName : req.body.firstName,
     lastName : req.body.lastName ,
-    email : req.body.email, 
-    favoriteColor : req.body.favoriteColor, 
+    email : req.body.email,
+    favoriteColor : req.body.favoriteColor,
     birthday : req.body.birthday
   };
   const result = await mongoDB.getDatabase().db().collection('contacts').replaceOne({_id:contactId}, contact);
@@ -97,9 +100,9 @@ const deleteContact = async (req, res) => {
   }
 };
 
-  module.exports = 
-    {getAll, 
-    getContactById, 
+  module.exports =
+    {getAll,
+    getContactById,
     createContact,
     updateContact,
     deleteContact
