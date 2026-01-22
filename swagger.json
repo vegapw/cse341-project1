@@ -5,14 +5,18 @@
     "description": "Contacts API from project 1 for CSE-341 - Web Services",
     "version": "1.0.0"
   },
-  "host": "cse341-project1-0cba.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
+    "http",
     "https"
   ],
   "paths": {
     "/": {
       "get": {
+        "tags": [
+          "Hello World"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -23,6 +27,9 @@
     },
     "/contacts/": {
       "get": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "produces": [
           "application/json"
@@ -34,6 +41,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
@@ -62,8 +72,8 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
+          "201": {
+            "description": "Created"
           },
           "500": {
             "description": "Internal Server Error"
@@ -73,6 +83,9 @@
     },
     "/contacts/{id}": {
       "get": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "produces": [
           "application/json"
@@ -92,6 +105,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
@@ -135,6 +151,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
