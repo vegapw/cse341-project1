@@ -5,10 +5,9 @@
     "description": "Contacts API from project 1 for CSE-341 - Web Services",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "https://cse341-project1-0cba.onrender.com/",
   "basePath": "/",
   "schemes": [
-    "http",
     "https"
   ],
   "paths": {
